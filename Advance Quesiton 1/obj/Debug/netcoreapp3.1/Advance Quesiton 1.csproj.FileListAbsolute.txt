@@ -9,3 +9,5 @@ C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netc
 C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netcoreapp3.1\Advance Quesiton 1.AssemblyInfo.cs
 C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netcoreapp3.1\Advance Quesiton 1.dll
 C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netcoreapp3.1\Advance Quesiton 1.pdb
+C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netcoreapp3.1\Advance Quesiton 1.csproj.CoreCompileInputs.cache
+C:\Users\hakop\source\repos\Advance Quesiton 1\Advance Quesiton 1\obj\Debug\netcoreapp3.1\Advance Quesiton 1.genruntimeconfig.cache

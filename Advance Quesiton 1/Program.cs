@@ -25,7 +25,8 @@ namespace Advance_Quesiton_1
                 }
                 else
                 {
-                    
+                    var temp = trie.SpellCheck(prefix);
+                    temp.ForEach(x => Console.WriteLine(x));
                 }
             }
 

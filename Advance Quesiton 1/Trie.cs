@@ -1,9 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Advance_Quesiton_1
 {
+    class LevenshteinDistance
+    {
+        public static int Compute(string s, string t)
+        {
+            int n = s.Length;
+            int m = t.Length;
+            int[,] d = new int[n + 1, m + 1];
+
+            if (n == 0)
+            {
+                return m;
+            }
+            if (m == 0)
+            {
+                return n;
+            }
+            for (int i = 0; i <= n; d[i, 0] = i++)
+            {}
+
+            for (int j = 0; j <= m; d[0, j] = j++)
+            {}
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+
+                    d[i, j] = Math.Min(
+                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                        d[i - 1, j - 1] + cost);
+                }
+            }
+            return d[n, m];
+        }
+    }
     class TrieNode
     {
         private string word;
@@ -32,7 +68,7 @@ namespace Advance_Quesiton_1
 
     public class Trie
     {
-        private TrieNode root;
+        TrieNode root;
 
         public Trie()
         {
@@ -41,7 +77,7 @@ namespace Advance_Quesiton_1
 
         public void Clear()
         {
-            root = new TrieNode('$');
+            root = new TrieNode(' ');
         }
 
         public void Insert(string word)
@@ -59,7 +95,7 @@ namespace Advance_Quesiton_1
                 }
                 else
                 {
-                    tempTrieNode = new TrieNode(letter);
+                    tempTrieNode = new TrieNode(letter);  
                     children.Add(letter, tempTrieNode);
                 }
 
@@ -105,8 +141,29 @@ namespace Advance_Quesiton_1
 
             return tempNode;
         }
+        public List<string> SpellCheck(string word)
+        {
+            List<string> res = new List<string>();
+            if(Contains(word))
+            {
+                res.Add(word);
+                return res;
+            }
+            List<string> outputs = new List<string>();
+            GetAllWords(root, outputs, "");
+            var filter = outputs.Where(x => x.Length >= word.Length - 1 || x.Length <= word.Length + 1).ToList();
+            List<(int Distance, string result)> pairs = new List<(int Distance, string result)>();
+            
+            foreach(var w in filter)
+            {
+                int d = LevenshteinDistance.Compute(word, w);
+                pairs.Add((d, w));
+            }
 
-        public List<string> GetAllMatchingPrefix(string prefix)
+            return pairs.OrderBy(x => x.Distance).Take(5).Select(x=>x.result).ToList();
+
+        }
+        public List<string> GetAllwordsMatchingPrefix(string prefix)
         {
             var allWords = new List<string>();
 
