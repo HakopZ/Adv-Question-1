@@ -149,6 +149,7 @@ namespace Advance_Quesiton_1
                 res.Add(word);
                 return res;
             }
+
             List<string> outputs = new List<string>();
             GetAllWords(root, outputs, "");
             var filter = outputs.Where(x => x.Length >= word.Length - 1 || x.Length <= word.Length + 1).ToList();
@@ -192,7 +193,7 @@ namespace Advance_Quesiton_1
             }
         }
 
-        public bool Remove(string prefix)
+        public bool RemoveWord(string prefix)
         {
             var foundNode = SearchNode(prefix);
 
