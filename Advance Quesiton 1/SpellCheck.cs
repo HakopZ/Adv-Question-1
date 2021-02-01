@@ -8,7 +8,7 @@ namespace Advance_Quesiton_1
 {
     public class SpellCheck
     {
-        public Dictionary<string, string> WordSoundexes;
+        public Dictionary<string, List<string>> WordSoundexes;
         public SpellCheck(string path)
         {
             var words = File.ReadAllLines(path);
@@ -21,19 +21,25 @@ namespace Advance_Quesiton_1
         public void AddCollectionToDictionary(IEnumerable<string> x)
         {
 
-            WordSoundexes = new Dictionary<string, string>();
+            WordSoundexes = new Dictionary<string, List<string>>();
             foreach (var word in x)
             {
                 if (word.All(char.IsLetter))
                 {
-                    WordSoundexes.Add(word, Soundex.GetSoundex(word));
+                    var soundex = Soundex.GetSoundex(word);
+                    if(!WordSoundexes.ContainsKey(soundex))
+                    {
+                        WordSoundexes.Add(soundex, new List<string>());
+                    }
+                    WordSoundexes[soundex].Add(word);
                 }
             }
         }
         public List<string> CheckWord(string word)
         {
             string soundex = Soundex.GetSoundex(word);
-            var closeWords = WordSoundexes.Where(x => x.Value == soundex).Select(x => x.Key).ToList();
+            var closeWords = WordSoundexes[word];
+            
             if(closeWords.Count == 0)
             {
                 return default;

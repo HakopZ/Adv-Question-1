@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Advance_Quesiton_1
@@ -38,7 +39,53 @@ namespace Advance_Quesiton_1
             }
             return '.';
         }
+        public static int CompareSoundexes(string firstWord, string secondWord)
+        {
+            int res = 0;
+            string firstSoundex = GetSoundex(firstWord);
+            string secondSoundex = GetSoundex(secondWord);
 
+            if(firstSoundex == secondSoundex)
+            {
+                return 4;
+            }
+            else
+            {
+                if(secondSoundex.Contains(firstSoundex.Skip(1).ToString()))
+                {
+                    res = 3;
+                }
+                else if(secondSoundex.Contains(firstSoundex.Skip(2).ToString()))
+                {
+                    res = 2;
+                }
+                else if(secondSoundex.Contains(firstSoundex.Skip(1).Take(2).ToString()))
+                {
+                    res = 2;
+                }
+                else
+                {
+                    if(secondSoundex.Contains(firstSoundex[1]))
+                    {
+                        res++;
+                    }
+                    if(secondSoundex.Contains(firstSoundex[2]))
+                    {
+                        res++;
+                    }
+                    if(secondSoundex.Contains(firstSoundex[3]))
+                    {
+                        res++;
+                    }
+                    
+                }
+                if (firstSoundex[0] == secondSoundex[0])
+                {
+                    res++;
+                }
+            }
+            return res == 0 ? 1 : res;
+        }
         public static string GetSoundex(string word)
         {
             word = word.ToLower();
